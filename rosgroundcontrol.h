@@ -28,6 +28,16 @@ private slots:
 
     void on_leftCommand_pressed();
 
+    void on_leftCommand_released();
+
+    void on_rightCommand_pressed();
+
+    void on_rightCommand_released();
+
+    void on_downCommand_pressed();
+
+    void on_downCommand_released();
+
 private:
     Ui::ROSGroundControl *ui;
     int _sock;

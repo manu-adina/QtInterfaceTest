@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <iostream>
+#include <iostream>
 
 MavCommands::MavCommands()
 {
@@ -17,6 +18,7 @@ MavCommands::MavCommands()
     if((_sock = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
         qCritical("Socket Failed (%d): %s", errno, strerror(errno));
         close(_sock);
+        QApplication::quit();
     }
 
     _ground_station_addr.sin_family = AF_INET;
@@ -43,4 +45,5 @@ void MavCommands::SendGimbalCommands(uint16_t pan_value, uint16_t tilt_value, ui
     mavlink_msg_gimbal_commands_pack(1, 200, &msg, pan_value, tilt_value, roll_value);
     _len = mavlink_msg_to_send_buffer(buf, &msg);
     _bytes_sent = sendto(_sock, buf, _len, 0, (struct sockaddr *)&_ground_station_addr, sizeof(struct sockaddr_in));
+    std::cout << "Bytes Sent: " << _bytes_sent  << std::endl;
 }
