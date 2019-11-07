@@ -8,27 +8,26 @@
 #include <fcntl.h>
 #include <string.h>
 #include <iostream>
-#include <iostream>
 
 MavCommands::MavCommands()
 {
     /* Set up the socket for sending commansd */
-    std::string payload_address = "192.168.0.244";
+    char target_ip[] = "127.0.0.1";
 
     if((_sock = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
         qCritical("Socket Failed (%d): %s", errno, strerror(errno));
         close(_sock);
-        QApplication::quit();
+        //QApplication::quit();
     }
 
     _ground_station_addr.sin_family = AF_INET;
-    _ground_station_addr.sin_addr.s_addr = inet_addr(payload_address.c_str());
-    _ground_station_addr.sin_port = 14550;
+    _ground_station_addr.sin_addr.s_addr = inet_addr(target_ip);
+    _ground_station_addr.sin_port = htons(14550);
 
     /* Make the socket non-blocking */
     if(fcntl(_sock, F_SETFL, O_NONBLOCK | O_ASYNC) < 0) {
         qCritical("Failed to set the sock to non-blocking");
-        QApplication::quit();
+        //QApplication::quit();
     }
 }
 
