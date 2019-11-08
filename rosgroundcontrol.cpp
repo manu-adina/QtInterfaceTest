@@ -6,6 +6,8 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
     ui(new Ui::ROSGroundControl)
 {
     ui->setupUi(this);
+
+    /* Setting up sliders max, min and initial valie */
     ui->panSlider->setMinimum(0);
     ui->panSlider->setMaximum(1023);
     ui->panSlider->setValue(200);
@@ -30,9 +32,8 @@ void ROSGroundControl::on_pushButton_clicked()
     ui->tiltSlider->setValue(200);
     ui->rollSlider->setValue(200);
 
-    // Send 1023 as speed values
-    // Send 1023 as speed values
-    // Send 1023 as speed values
+    _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, 1023 + static_cast<uint16_t>(ui->tiltSlider->value()),
+                                     STOP_GIMBAL_COMMAND);
 }
 
 void ROSGroundControl::on_upCommand_pressed()

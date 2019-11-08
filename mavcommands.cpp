@@ -36,6 +36,7 @@ void MavCommands::SendGimbalCommands(uint16_t pan_value, uint16_t tilt_value, ui
     mavlink_message_t msg;
     uint8_t buf[BUFFER_LENGTH];
 
+    /* Changing camera modes later */
 //    mavlink_msg_camera_mode_pack(1, 200, &msg, camera_mode);
 //    len = mavlink_msg_to_send_buffer(buf, &msg);
 //    bytes_sent = sendto(sock, buf, len, 0, (struct sockaddr *)&ground_station_addr, sizeof(struct sockaddr_in));
