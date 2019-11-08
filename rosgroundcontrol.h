@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include "mavcommands.h"
 
+#include <gst/gst.h>
+#include <gst/video/videooverlay.h> // For GST_VIDEO_OVERLAY variable.
+
 #define STOP_GIMBAL_COMMAND 1023
 
 namespace Ui {
@@ -17,6 +20,7 @@ class ROSGroundControl : public QMainWindow
 
 public:
     explicit ROSGroundControl(QWidget *parent = nullptr);
+    WId OpenGLWidgetWId();
     ~ROSGroundControl();
 
 private slots:

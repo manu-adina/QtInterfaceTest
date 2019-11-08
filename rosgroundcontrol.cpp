@@ -21,6 +21,10 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
     ui->rollSlider->setValue(200);
 }
 
+WId ROSGroundControl::OpenGLWidgetWId() {
+    return ui->openGLWidget->winId();
+}
+
 ROSGroundControl::~ROSGroundControl()
 {
     delete ui;
