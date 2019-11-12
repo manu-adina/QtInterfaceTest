@@ -1,11 +1,23 @@
 #include "rosgroundcontrol.h"
 #include "ui_rosgroundcontrol.h"
+#include <QThread>
+#include "telemetryreceive.h"
 
 ROSGroundControl::ROSGroundControl(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ROSGroundControl)
 {
     ui->setupUi(this);
+
+    QThread* telemetry_thread = new QThread;
+    TelemetryReceive *telemetry_worker = new TelemetryReceive();
+    telemetry_worker->moveToThread(telemetry_thread);
+
+    connect(telemetry_thread, SIGNAL(started()), telemetry_worker, SLOT(run()));
+    connect(telemetry_worker, SIGNAL(receivedMeasurement(float)), this, SLOT(receivedMeasurement(float)));
+    connect(telemetry_thread, SIGNAL(finished()), telemetry_thread, SLOT(deleteLater()));
+
+    telemetry_thread->start();
 
     /* Setting up sliders max, min and initial valie */
     ui->panSlider->setMinimum(0);
@@ -125,4 +137,9 @@ void ROSGroundControl::on_downCommand_released()
     ui->outputTextBox->setPlainText(outputText);
 
     _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, STOP_GIMBAL_COMMAND, STOP_GIMBAL_COMMAND);
+}
+
+void ROSGroundControl::receivedMeasurement(float measurement) {
+    QString measurementStr = QString::number(measurement);
+    ui->laserMeasurement->setText("Measurement: " + measurementStr);
 }

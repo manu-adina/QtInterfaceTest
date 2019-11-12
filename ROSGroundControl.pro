@@ -30,12 +30,14 @@ SOURCES += \
         main.cpp \
         rosgroundcontrol.cpp \
     mavcommands.cpp \
-    gstreamerudpreceive.cpp
+    gstreamerudpreceive.cpp \
+    telemetryreceive.cpp
 
 HEADERS += \
         rosgroundcontrol.h \
     mavcommands.h \
-    gstreamerudpreceive.h
+    gstreamerudpreceive.h \
+    telemetryreceive.h
 
 FORMS += \
         rosgroundcontrol.ui

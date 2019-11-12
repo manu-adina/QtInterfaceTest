@@ -42,6 +42,8 @@ private slots:
 
     void on_downCommand_released();
 
+    void receivedMeasurement(float measurement);
+
 private:
     Ui::ROSGroundControl *ui;
     int _sock;
