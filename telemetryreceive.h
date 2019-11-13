@@ -17,6 +17,7 @@ public:
 
 signals:
     void receivedMeasurement(float measurement);
+    void receivedCoordinates(float *coordinates_x, float *coordinates_y);
 
 public slots:
     void run();

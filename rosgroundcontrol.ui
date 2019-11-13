@@ -190,6 +190,19 @@
      <string>Measurement:</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="sensorTrigger">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>40</y>
+      <width>100</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sensor Btn</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

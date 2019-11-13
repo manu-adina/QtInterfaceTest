@@ -15,6 +15,7 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
 
     connect(telemetry_thread, SIGNAL(started()), telemetry_worker, SLOT(run()));
     connect(telemetry_worker, SIGNAL(receivedMeasurement(float)), this, SLOT(receivedMeasurement(float)));
+    connect(telemetry_worker, SIGNAL(receivedCoordinates(float*, float*)), this, SLOT(receivedMeasurement(float*, float*)));
     connect(telemetry_thread, SIGNAL(finished()), telemetry_thread, SLOT(deleteLater()));
 
     telemetry_thread->start();
@@ -142,4 +143,8 @@ void ROSGroundControl::on_downCommand_released()
 void ROSGroundControl::receivedMeasurement(float measurement) {
     QString measurementStr = QString::number(measurement);
     ui->laserMeasurement->setText("Measurement: " + measurementStr);
+}
+
+void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordinates_y) {
+
 }

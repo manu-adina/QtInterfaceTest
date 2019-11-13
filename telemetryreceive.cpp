@@ -39,9 +39,17 @@ void TelemetryReceive::processMavlinkMessage(mavlink_message_t msg) {
             mavlink_laser_measurement_t mav_laser_measurement_msg;
             mavlink_msg_laser_measurement_decode(&msg, &mav_laser_measurement_msg);
             float measurement = mav_laser_measurement_msg.rangefinder_reading;
-            std::cout << "Received a message lol ?" << std::endl;
             emit receivedMeasurement(measurement);
 
+        }
+        break;
+    case MAVLINK_MSG_ID_SENSOR_COORDINATES:
+        {
+            mavlink_sensor_coordinates_t mav_sensor_coordinates_msg;
+            mavlink_msg_sensor_coordinates_decode(&msg, &mav_sensor_coordinates_msg);
+            float *coordinates_x = mav_sensor_coordinates_msg.wavelength_array_x_vals;
+            float *coordinates_y  = mav_sensor_coordinates_msg.wavelength_array_y_vals;
+            emit receivedCoordinates(coordinates_x, coordinates_y);
         }
         break;
     }

@@ -43,6 +43,7 @@ private slots:
     void on_downCommand_released();
 
     void receivedMeasurement(float measurement);
+    void receivedCoordinates(float *coordinates_x, float *coordinates_y);
 
 private:
     Ui::ROSGroundControl *ui;
