@@ -37,6 +37,12 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
     chart = new QChart();
     chartView = new QChartView();
 
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->resize(640, 480);
+    chartView->hide();
+
 }
 
 WId ROSGroundControl::OpenGLWidgetWId() {
@@ -121,16 +127,12 @@ void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordina
         newSeries->append(coordinates_x[i], coordinates_y[i]);
     }
 
-    chart->legend()->hide();
-    chart->addSeries(series);
+    this->layout()->addWidget(chartView);
+
     chart->setTitle("Sensor Scatter Plot");
     chart->createDefaultAxes();
     chart->axes(Qt::Vertical).first()->setRange(0, 10);
     chart->axes(Qt::Horizontal).first()->setRange(0, 10);
-
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->resize(640, 480);
-    this->layout()->addWidget(chartView);
 
     chart->addSeries(newSeries);
     chartView->setChart(chart);
