@@ -22,7 +22,7 @@ MavCommands::MavCommands()
 
     _ground_station_addr.sin_family = AF_INET;
     _ground_station_addr.sin_addr.s_addr = inet_addr(target_ip);
-    _ground_station_addr.sin_port = htons(14551);
+    _ground_station_addr.sin_port = htons(14550);
 
     /* Make the socket non-blocking */
     if(fcntl(_sock, F_SETFL, O_NONBLOCK | O_ASYNC) < 0) {

@@ -16,7 +16,7 @@ int TelemetryReceive::setUpUDPCommunication() {
 
     _local_addr.sin_family = AF_INET;
     _local_addr.sin_addr.s_addr = INADDR_ANY;
-    _local_addr.sin_port = htons(14550);
+    _local_addr.sin_port = htons(14551);
 
     if(bind(_sock, (struct sockaddr *)&_local_addr, sizeof(struct sockaddr)) < 0) {
         qCritical("Error Binding to the Socket");
