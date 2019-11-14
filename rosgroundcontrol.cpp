@@ -34,24 +34,9 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
     ui->rollSlider->setMaximum(1023);
     ui->rollSlider->setValue(200);
 
-
-    series = new QScatterSeries();
-    series->setName("Sensor Data");
-    series->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    series->setMarkerSize(5.0);
-
     chart = new QChart();
-    chart->legend()->hide();
-    chart->addSeries(series);
-    chart->setTitle("Sensor Scatter Plot");
-    chart->createDefaultAxes();
-    chart->axes(Qt::Vertical).first()->setRange(0, 10);
-    chart->axes(Qt::Horizontal).first()->setRange(0, 10);
-    chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->resize(331, 281);
-    chartView->move(665, 360);
-    this->layout()->addWidget(chartView);
+    chartView = new QChartView();
+
 }
 
 WId ROSGroundControl::OpenGLWidgetWId() {
@@ -122,7 +107,7 @@ void ROSGroundControl::on_downCommand_released()
 
 void ROSGroundControl::receivedMeasurement(float measurement) {
     QString measurementStr = QString::number(measurement);
-    ui->laserMeasurement->setText("Measurement: " + measurementStr);
+    ui->laserMeasurement->setText("Dist: " + measurementStr);
 }
 
 void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordinates_y) {
@@ -135,6 +120,17 @@ void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordina
     for(int i = 0; i < 10; i++) {
         newSeries->append(coordinates_x[i], coordinates_y[i]);
     }
+
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->setTitle("Sensor Scatter Plot");
+    chart->createDefaultAxes();
+    chart->axes(Qt::Vertical).first()->setRange(0, 10);
+    chart->axes(Qt::Horizontal).first()->setRange(0, 10);
+
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->resize(640, 480);
+    this->layout()->addWidget(chartView);
 
     chart->addSeries(newSeries);
     chartView->setChart(chart);
