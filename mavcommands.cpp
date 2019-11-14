@@ -12,12 +12,12 @@
 MavCommands::MavCommands()
 {
     /* Set up the socket for sending commansd */
-    char target_ip[] = "127.0.0.1";
+    char target_ip[] = "192.168.0.245";
 
     if((_sock = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
         qCritical("Socket Failed (%d): %s", errno, strerror(errno));
         close(_sock);
-        //QApplication::quit();
+        QApplication::quit();
     }
 
     _ground_station_addr.sin_family = AF_INET;
@@ -27,23 +27,21 @@ MavCommands::MavCommands()
     /* Make the socket non-blocking */
     if(fcntl(_sock, F_SETFL, O_NONBLOCK | O_ASYNC) < 0) {
         qCritical("Failed to set the sock to non-blocking");
-        //QApplication::quit();
+        close(_sock);
+        QApplication::quit();
     }
 }
 
+/* Send roll, pitch, pan values to the gimbal */
 void MavCommands::SendGimbalCommands(uint16_t pan_value, uint16_t tilt_value, uint16_t roll_value){
+    mavlink_msg_gimbal_commands_pack(1, 200, &_mav_msg, pan_value, tilt_value, roll_value);
+    _len = mavlink_msg_to_send_buffer(_buf, &_mav_msg);
+    _bytes_sent = sendto(_sock, _buf, _len, 0, (struct sockaddr *)&_ground_station_addr, sizeof(struct sockaddr_in));
+}
 
-    mavlink_message_t msg;
-    uint8_t buf[BUFFER_LENGTH];
-
-    /* Changing camera modes later */
-//    mavlink_msg_camera_mode_pack(1, 200, &msg, camera_mode);
-//    len = mavlink_msg_to_send_buffer(buf, &msg);
-//    bytes_sent = sendto(sock, buf, len, 0, (struct sockaddr *)&ground_station_addr, sizeof(struct sockaddr_in));
-
-    /* Send roll, pitch, pan values to the gimbal */
-    mavlink_msg_gimbal_commands_pack(1, 200, &msg, pan_value, tilt_value, roll_value);
-    _len = mavlink_msg_to_send_buffer(buf, &msg);
-    _bytes_sent = sendto(_sock, buf, _len, 0, (struct sockaddr *)&_ground_station_addr, sizeof(struct sockaddr_in));
-    std::cout << "Bytes Sent: " << _bytes_sent  << std::endl;
+/* Send request to receive sensor coordinates */
+void MavCommands::SendSensorCoordsRequest() {
+    mavlink_msg_sensor_coords_request_pack(1, 200, &_mav_msg, 1);
+    _len = mavlink_msg_to_send_buffer(_buf, &_mav_msg);
+    _bytes_sent = sendto(_sock, _buf, _len, 0, (struct sockaddr *)&_ground_station_addr, sizeof(struct sockaddr_in));
 }

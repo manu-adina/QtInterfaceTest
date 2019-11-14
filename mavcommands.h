@@ -15,13 +15,15 @@ class MavCommands
     public:
         MavCommands();
         void SendGimbalCommands(uint16_t pan_value, uint16_t tilt_value, uint16_t roll_value);
-
+        void SendSensorCoordsRequest();
 
     private:
         int _sock;
         uint16_t _len;
         ssize_t _bytes_sent;
         struct sockaddr_in _ground_station_addr;
+        mavlink_message_t _mav_msg;
+        uint8_t _buf[BUFFER_LENGTH];
 };
 
 #endif // MAVCOMMANDS_H

@@ -16,7 +16,7 @@ int TelemetryReceive::setUpUDPCommunication() {
 
     _local_addr.sin_family = AF_INET;
     _local_addr.sin_addr.s_addr = INADDR_ANY;
-    _local_addr.sin_port = htons(5800);
+    _local_addr.sin_port = htons(14551);
 
     if(bind(_sock, (struct sockaddr *)&_local_addr, sizeof(struct sockaddr)) < 0) {
         qCritical("Error Binding to the Socket");
@@ -45,6 +45,7 @@ void TelemetryReceive::processMavlinkMessage(mavlink_message_t msg) {
         break;
     case MAVLINK_MSG_ID_SENSOR_COORDINATES:
         {
+            std::cout << "Received Coords" << std::endl;
             mavlink_sensor_coordinates_t mav_sensor_coordinates_msg;
             mavlink_msg_sensor_coordinates_decode(&msg, &mav_sensor_coordinates_msg);
             float *coordinates_x = mav_sensor_coordinates_msg.wavelength_array_x_vals;
@@ -63,15 +64,13 @@ void TelemetryReceive::run() {
 
     for(;;) {
         recsize = recvfrom(_sock, (void *)buf, BUFFER_SIZE, 0, (struct sockaddr *)&_local_addr, &fromlen);
-        std:: cout << "Recsize " << recsize << std::endl;
         if(recsize > 0) {
-            // Something is received.
+            /* Received bytes */
             mavlink_message_t msg;
             mavlink_status_t status;
 
             for(int i = 0; i < recsize; i++) {
                 if(mavlink_parse_char(MAVLINK_COMM_0, buf[i], &msg, &status)) {
-                    std::cout << "Got here" << std::endl;
                     processMavlinkMessage(msg);
                 }
             }

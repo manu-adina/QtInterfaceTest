@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QtCharts>
+
 #include "mavcommands.h"
 
 #include <gst/gst.h>
@@ -45,10 +47,16 @@ private slots:
     void receivedMeasurement(float measurement);
     void receivedCoordinates(float *coordinates_x, float *coordinates_y);
 
+    void on_sensorTrigger_clicked();
+
 private:
     Ui::ROSGroundControl *ui;
     int _sock;
     MavCommands _mav_send_obj;
+
+    QScatterSeries *series;
+    QChart *chart;
+    QChartView *chartView;
 };
 
 #endif // ROSGROUNDCONTROL_H
