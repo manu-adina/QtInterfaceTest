@@ -137,6 +137,7 @@ void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordina
     chart->addSeries(newSeries);
     chartView->setChart(chart);
     chartView->repaint();
+    chartView->show();
 }
 
 void ROSGroundControl::on_sensorTrigger_clicked()
