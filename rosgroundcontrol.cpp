@@ -24,19 +24,6 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
 
     telemetry_thread->start();
 
-    /* Setting up sliders max, min and initial valie */
-    ui->panSlider->setMinimum(0);
-    ui->panSlider->setMaximum(1023);
-    ui->panSlider->setValue(200);
-
-    ui->tiltSlider->setMinimum(0);
-    ui->tiltSlider->setMaximum(1023);
-    ui->tiltSlider->setValue(200);
-
-    ui->rollSlider->setMinimum(0);
-    ui->rollSlider->setMaximum(1023);
-    ui->rollSlider->setValue(200);
-
     /* Setting up gimbal control button icons */
     QCommonStyle style;
     ui->upCommand->setIcon(style.standardIcon(QStyle::SP_ArrowUp));
