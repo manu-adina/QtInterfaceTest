@@ -26,7 +26,6 @@ public:
     ~ROSGroundControl();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_upCommand_pressed();
 
@@ -48,6 +47,10 @@ private slots:
     void receivedCoordinates(float *coordinates_x, float *coordinates_y);
 
     void on_sensorTrigger_clicked();
+
+    void on_chartCloseButton_clicked();
+
+    void on_quitButton_clicked();
 
 private:
     Ui::ROSGroundControl *ui;

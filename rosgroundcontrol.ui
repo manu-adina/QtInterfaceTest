@@ -53,19 +53,6 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="stopButton">
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>300</y>
-      <width>101</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stop</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="panLabel">
     <property name="geometry">
      <rect>
@@ -115,7 +102,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>^</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="rightCommand">
@@ -128,7 +115,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&gt;</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="leftCommand">
@@ -141,7 +128,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="downCommand">
@@ -154,7 +141,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>v</string>
+     <string/>
     </property>
    </widget>
    <widget class="QOpenGLWidget" name="openGLWidget">
@@ -193,7 +180,7 @@
      <string>Sensor Btn</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="chartCloseButton">
     <property name="geometry">
      <rect>
       <x>650</x>
@@ -204,6 +191,19 @@
     </property>
     <property name="text">
      <string>Close Plot</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quitButton">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>370</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Quit</string>
     </property>
    </widget>
   </widget>
