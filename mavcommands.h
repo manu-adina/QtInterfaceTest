@@ -16,6 +16,7 @@ class MavCommands
         MavCommands();
         void SendGimbalCommands(uint16_t pan_value, uint16_t tilt_value, uint16_t roll_value);
         void SendSensorCoordsRequest();
+        void SendCameraCommands(uint8_t mode_1, uint8_t mode_2, uint8_t mode_3);
 
     private:
         int _sock;

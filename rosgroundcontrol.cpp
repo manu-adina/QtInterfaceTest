@@ -24,25 +24,17 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
 
     telemetry_thread->start();
 
-    /* Setting up sliders max, min and initial valie */
-    ui->panSlider->setMinimum(0);
-    ui->panSlider->setMaximum(1023);
-    ui->panSlider->setValue(200);
-
-    ui->tiltSlider->setMinimum(0);
-    ui->tiltSlider->setMaximum(1023);
-    ui->tiltSlider->setValue(200);
-
-    ui->rollSlider->setMinimum(0);
-    ui->rollSlider->setMaximum(1023);
-    ui->rollSlider->setValue(200);
-
     /* Setting up gimbal control button icons */
     QCommonStyle style;
     ui->upCommand->setIcon(style.standardIcon(QStyle::SP_ArrowUp));
     ui->downCommand->setIcon(style.standardIcon(QStyle::SP_ArrowDown));
     ui->leftCommand->setIcon(style.standardIcon(QStyle::SP_ArrowLeft));
     ui->rightCommand->setIcon(style.standardIcon(QStyle::SP_ArrowRight));
+
+    /* Setting up button labels for the camera mode buttons */
+    ui->cameraMode_1->setText(QString::number(camera_mode_1));
+    ui->cameraMode_2->setText(QString::number(camera_mode_2));
+    ui->cameraMode_3->setText(QString::number(camera_mode_3));
 
     chart = new QChart();
     chartView = new QChartView();
@@ -74,7 +66,6 @@ ROSGroundControl::ROSGroundControl(QWidget *parent) :
     chartView->move(0, 0);
     ui->openGLWidget->move(0, 0);
     chartView->hide();
-
 }
 
 WId ROSGroundControl::OpenGLWidgetWId() {
@@ -88,7 +79,7 @@ ROSGroundControl::~ROSGroundControl()
 
 void ROSGroundControl::on_upCommand_pressed()
 {
-    _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, 1023 + static_cast<uint16_t>(ui->tiltSlider->value()),
+    _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, 1023 + SPEED_OFFSET,
                                      STOP_GIMBAL_COMMAND);
 }
 
@@ -100,7 +91,7 @@ void ROSGroundControl::on_upCommand_released()
 
 void ROSGroundControl::on_leftCommand_pressed()
 {
-    _mav_send_obj.SendGimbalCommands(1023 + static_cast<uint16_t>(ui->panSlider->value()),
+    _mav_send_obj.SendGimbalCommands(1023 + SPEED_OFFSET,
                                      STOP_GIMBAL_COMMAND, STOP_GIMBAL_COMMAND);
 }
 
@@ -111,7 +102,7 @@ void ROSGroundControl::on_leftCommand_released()
 
 void ROSGroundControl::on_rightCommand_pressed()
 {
-    _mav_send_obj.SendGimbalCommands(1023 - static_cast<uint16_t>(ui->panSlider->value()),
+    _mav_send_obj.SendGimbalCommands(1023 - SPEED_OFFSET,
                                      STOP_GIMBAL_COMMAND, STOP_GIMBAL_COMMAND);
 }
 
@@ -124,7 +115,7 @@ void ROSGroundControl::on_rightCommand_released()
 
 void ROSGroundControl::on_downCommand_pressed()
 {
-    _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, 1023 - static_cast<uint16_t>(ui->tiltSlider->value()),
+    _mav_send_obj.SendGimbalCommands(STOP_GIMBAL_COMMAND, 1023 - SPEED_OFFSET,
                                      STOP_GIMBAL_COMMAND);
 }
 
@@ -143,11 +134,9 @@ void ROSGroundControl::receivedCoordinates(float *coordinates_x, float *coordina
     series->clear();
 
     for(int i = 0; i < 10; i++) {
-        //newSeries->append(coordinates_x[i], coordinates_y[i]);
         series->append(coordinates_x[i], coordinates_y[i]);
     }
 
-    //chart->addSeries(newSeries);
     chart->addSeries(series);
 
 
@@ -169,4 +158,28 @@ void ROSGroundControl::on_chartCloseButton_clicked()
 void ROSGroundControl::on_quitButton_clicked()
 {
     QApplication::quit();
+}
+
+void ROSGroundControl::on_cameraMode_1_clicked()
+{
+    camera_mode_1 = (camera_mode_1 % 3) + 1;
+    _mav_send_obj.SendCameraCommands(camera_mode_1, camera_mode_2, camera_mode_3);
+
+    ui->cameraMode_1->setText(QString::number(camera_mode_1));
+}
+
+void ROSGroundControl::on_cameraMode_2_clicked()
+{
+    camera_mode_2 = (camera_mode_2 % 3) + 1;
+    _mav_send_obj.SendCameraCommands(camera_mode_2, camera_mode_2, camera_mode_3);
+
+    ui->cameraMode_2->setText(QString::number(camera_mode_2));
+}
+
+void ROSGroundControl::on_cameraMode_3_clicked()
+{
+    camera_mode_3 = (camera_mode_3 % 3) + 1;
+    _mav_send_obj.SendCameraCommands(camera_mode_2, camera_mode_2, camera_mode_3);
+
+    ui->cameraMode_3->setText(QString::number(camera_mode_3));
 }

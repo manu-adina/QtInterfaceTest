@@ -11,6 +11,7 @@
 #include <gst/video/videooverlay.h> // For GST_VIDEO_OVERLAY variable.
 
 #define STOP_GIMBAL_COMMAND 1023
+#define SPEED_OFFSET 300
 
 namespace Ui {
 class ROSGroundControl;
@@ -52,6 +53,12 @@ private slots:
 
     void on_quitButton_clicked();
 
+    void on_cameraMode_1_clicked();
+
+    void on_cameraMode_2_clicked();
+
+    void on_cameraMode_3_clicked();
+
 private:
     Ui::ROSGroundControl *ui;
     int _sock;
@@ -60,6 +67,10 @@ private:
     QScatterSeries *series;
     QChart *chart;
     QChartView *chartView;
+
+    int camera_mode_1 = 1;
+    int camera_mode_2 = 1;
+    int camera_mode_3 = 1;
 };
 
 #endif // ROSGROUNDCONTROL_H

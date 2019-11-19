@@ -14,84 +14,6 @@
    <string>ROSGroundControl</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QSlider" name="rollSlider">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>80</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="tiltSlider">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>50</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="panSlider">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>20</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="panLabel">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>20</y>
-      <width>91</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Pan Speed</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="tiltLabel">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>50</y>
-      <width>81</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Tilt Speed</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="rollLabel">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>80</y>
-      <width>91</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Roll Speed</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="upCommand">
     <property name="geometry">
      <rect>
@@ -158,9 +80,9 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>270</y>
-      <width>121</width>
-      <height>20</height>
+      <y>260</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -206,6 +128,82 @@
      <string>Quit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="cameraMode_1">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>320</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cameraMode_2">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>320</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cameraMode_3">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>320</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="cameraModesLabel">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>300</y>
+      <width>141</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Camera Modes</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="distanceText">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>260</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>upCommand</zorder>
+   <zorder>rightCommand</zorder>
+   <zorder>leftCommand</zorder>
+   <zorder>downCommand</zorder>
+   <zorder>openGLWidget</zorder>
+   <zorder>sensorTrigger</zorder>
+   <zorder>chartCloseButton</zorder>
+   <zorder>quitButton</zorder>
+   <zorder>cameraMode_1</zorder>
+   <zorder>cameraMode_2</zorder>
+   <zorder>cameraMode_3</zorder>
+   <zorder>cameraModesLabel</zorder>
+   <zorder>distanceText</zorder>
+   <zorder>laserMeasurement</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
