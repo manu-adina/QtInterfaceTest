@@ -12,7 +12,7 @@
 MavCommands::MavCommands()
 {
     /* Set up the socket for sending commansd */
-    char target_ip[] = "192.168.0.136";
+    char target_ip[] = "192.168.0.245";
 
     if((_sock = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
         qCritical("Socket Failed (%d): %s", errno, strerror(errno));
